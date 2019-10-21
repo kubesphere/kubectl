@@ -1,0 +1,32 @@
+services:
+  - docker
+
+language: go
+
+dist: xenial
+
+git:
+  depth: false
+
+go:
+  - "1.12.x"
+env:
+  - GO111MODULE=on
+cache:
+  directories:
+    - $HOME/gopath/pkg/mod
+
+before_script:
+  - docker --version
+
+script:
+  - docker build -f Dockerfile -t kubespheredev/kubectl:latest .
+
+install:
+
+deploy:
+  skip_cleanup: true
+  provider: script
+  script: echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin && docker push kubespheredev/kubectl:latest
+  on:
+    branch: master
