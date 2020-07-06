@@ -1,0 +1,33 @@
+name: build
+on:
+  schedule:
+    - cron: '0 10 1 * *' # every week
+  pull_request:
+    branches: master
+  push:
+    branches: master
+    tags:
+      - v*
+
+jobs:
+  buildx:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set up docker buildx
+        id: buildx
+        uses: crazy-max/ghaction-docker-buildx@v3
+        with:
+          buildx-version: latest
+          qemu-version: latest
+
+      - name: Available platforms
+        run: echo ${{ steps.buildx.outputs.platforms }}
+
+      - name: Run buildx
+        run: |
+          docker buildx build --platform linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64 \
+          --push --file ./Dockerfile -t kubespheredev/kubectl:latest
+
