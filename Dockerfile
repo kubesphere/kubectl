@@ -1,4 +1,4 @@
-From alpine:3.10
+From alpine:3.11
 
 ARG KUBECTL_VERSION=v1.19.12
 ARG TARGETPLATFORM
