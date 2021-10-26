@@ -1,6 +1,6 @@
 From alpine:3.13
 
-ARG KUBECTL_VERSION=v1.21.5
+ARG KUBECTL_VERSION=v1.22.1
 ARG TARGETPLATFORM
 
 RUN apk update && apk add \
