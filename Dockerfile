@@ -1,35 +1,25 @@
-From alpine:3.16
+FROM busybox:1.36.0 as busybox
 
-ARG KUBECTL_VERSION=v1.22.9
-ARG HELM_VERSION=v3.9.4
+ARG KUBECTL_VERSION=v1.24.9
 ARG TARGETOS
 ARG TARGETARCH
 
-RUN apk update && apk add \
-   bash \
-   bash-completion \
-   busybox-extras \
-   net-tools \
-   vim \
-   curl \
-   wget \
-   tcpdump \
-   ca-certificates && \
-   update-ca-certificates && \
-   rm -rf /var/cache/apk/* && \
-   curl -LO https://storage.googleapis.com/kubernetes-release/release/${KUBECTL_VERSION}/bin/${TARGETOS}/${TARGETARCH}/kubectl && \
-   chmod +x ./kubectl && \
-   mv ./kubectl /usr/local/bin/kubectl && \
-   echo -e 'source /usr/share/bash-completion/bash_completion\nsource <(kubectl completion bash)' >>~/.bashrc && \
-   curl -SsLO https://get.helm.sh/helm-${HELM_VERSION}-${TARGETOS}-${TARGETARCH}.tar.gz && \
-   tar xf helm-${HELM_VERSION}-${TARGETOS}-${TARGETARCH}.tar.gz -C /usr/local/bin && \ 
-   mv /usr/local/bin/${TARGETOS}-${TARGETARCH}/helm /usr/local/bin && \
-   rm helm-${HELM_VERSION}-${TARGETOS}-${TARGETARCH}.tar.gz && \
-   rm -rf /usr/local/bin/${TARGETOS}-${TARGETARCH}
-   
+ADD https://storage.googleapis.com/kubernetes-release/release/${KUBECTL_VERSION}/bin/${TARGETOS}/${TARGETARCH}/kubectl /usr/local/bin/
+RUN chmod +x /usr/local/bin/kubectl
+
+
+FROM gcr.io/distroless/base-debian11
+
+# Now copy the static shell into base image.
+COPY --from=busybox /bin/sh /bin/sh
+
+# You may also copy all necessary executables into distroless image.
+#COPY --from=busybox /bin/mkdir /bin/mkdir
+#COPY --from=busybox /bin/cat /bin/cat
+COPY --from=busybox /usr/local/bin/kubectl /usr/local/bin/kubectl
+
 
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 
 ENTRYPOINT ["entrypoint.sh"]
-
 
