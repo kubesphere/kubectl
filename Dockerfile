@@ -1,6 +1,6 @@
-FROM busybox:1.36.0 as busybox
+FROM busybox as busybox
 
-ARG KUBECTL_VERSION=v1.24.9
+ARG KUBECTL_VERSION=v1.24.12
 ARG TARGETOS
 ARG TARGETARCH
 
@@ -8,11 +8,11 @@ ADD https://storage.googleapis.com/kubernetes-release/release/${KUBECTL_VERSION}
 RUN chmod +x /usr/local/bin/kubectl
 
 
-FROM gcr.io/distroless/base-debian11
+FROM gcr.io/distroless/base:nonroot
 
 # Now copy the static shell into base image.
 COPY --from=busybox /bin/sh /bin/sh
-
+COPY --from=busybox /bin/sleep /bin/sleep
 # You may also copy all necessary executables into distroless image.
 #COPY --from=busybox /bin/mkdir /bin/mkdir
 #COPY --from=busybox /bin/cat /bin/cat
