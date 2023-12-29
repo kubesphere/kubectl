@@ -1,7 +1,7 @@
-From alpine:3.18.2
+From alpine:3.19
 
-ARG KUBECTL_VERSION=v1.27.4
-ARG HELM_VERSION=v3.12.2
+ARG KUBECTL_VERSION=v1.26.12
+ARG HELM_VERSION=v3.13.3
 ARG TARGETOS
 ARG TARGETARCH
 
@@ -10,6 +10,7 @@ RUN apk update && apk add \
    bash-completion \
    busybox-extras \
    net-tools \
+   jq \
    vim \
    curl \
    wget \
