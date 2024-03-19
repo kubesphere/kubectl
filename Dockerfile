@@ -13,6 +13,8 @@ RUN apk update && apk add \
    net-tools \
    vim \
    curl \
+   jq \
+   grep \
    wget \
    tcpdump \
    git \
