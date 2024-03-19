@@ -47,5 +47,5 @@ jobs:
 
       - name: Run buildx
         run: |
-          docker buildx build --platform linux/amd64,linux/arm64 --push --file ./Dockerfile -t kubesphere/toolbox:${{ steps.prepare.outputs.version }} .
+          docker buildx build --platform linux/amd64,linux/arm64 --push --file ./Dockerfile -t kubesphere/kubectl:${{ steps.prepare.outputs.version }} .
 
