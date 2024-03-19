@@ -14,7 +14,6 @@ RUN apk update && apk add \
    vim \
    curl \
    jq \
-   grep \
    wget \
    tcpdump \
    git \
