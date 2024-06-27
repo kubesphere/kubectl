@@ -1,6 +1,6 @@
-From alpine:3.16
+FROM alpine:edge
 
-ARG KUBECTL_VERSION=v1.22.9
+ARG KUBECTL_VERSION=v1.22.17
 ARG TARGETPLATFORM
 
 RUN apk update && apk add \
