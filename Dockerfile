@@ -28,6 +28,11 @@ RUN apk update && apk add \
    rm -rf /usr/local/bin/${TARGETOS}-${TARGETARCH} && \
    helm plugin install https://github.com/helm/helm-mapkubeapis
 
+RUN mkdir -p /opt/helm && chmod a+rwx /opt/helm
+ENV HELM_CACHE_HOME="/opt/helm/cache"
+ENV HELM_CONFIG_HOME="/opt/helm/config"
+ENV HELM_DATA_HOME="/opt/helm/data"
+
 RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/${KUBECTL_VERSION}/bin/${TARGETOS}/${TARGETARCH}/kubectl && \
     chmod +x ./kubectl && \
     mv ./kubectl /usr/local/bin/kubectl && \
@@ -41,5 +46,3 @@ RUN curl -SsLO https://github.com/kubernetes-sigs/kustomize/releases/download/ku
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 
 ENTRYPOINT ["entrypoint.sh"]
-
-
