@@ -1,6 +1,6 @@
-FROM alpine:3.18.2
+FROM alpine:3.18.8
 
-ARG KUBECTL_VERSION=v1.27.12
+ARG KUBECTL_VERSION=v1.27.16
 ARG HELM_VERSION=v3.14.1
 ARG KUSTOMIZE_VERSION=v5.1.0
 ARG TARGETOS
@@ -14,6 +14,7 @@ RUN apk update && apk add \
    vim \
    curl \
    jq \
+   yq \
    grep \
    wget \
    tcpdump \
