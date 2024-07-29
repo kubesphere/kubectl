@@ -27,8 +27,7 @@ RUN apk update && apk add \
    mv /usr/local/bin/${TARGETOS}-${TARGETARCH}/helm /usr/local/bin && \
    rm helm-${HELM_VERSION}-${TARGETOS}-${TARGETARCH}.tar.gz && \
    rm -rf /usr/local/bin/${TARGETOS}-${TARGETARCH} && \
-   helm plugin install https://github.com/helm/helm-mapkubeapis && \
-   apk del git
+   helm plugin install https://github.com/helm/helm-mapkubeapis
 
 RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/${KUBECTL_VERSION}/bin/${TARGETOS}/${TARGETARCH}/kubectl && \
     chmod +x ./kubectl && \
