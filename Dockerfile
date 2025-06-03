@@ -29,7 +29,7 @@ RUN apk update && apk add \
    rm -rf /usr/local/bin/${TARGETOS}-${TARGETARCH} && \
    helm plugin install https://github.com/helm/helm-mapkubeapis
 
-RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/${KUBECTL_VERSION}/bin/${TARGETOS}/${TARGETARCH}/kubectl && \
+RUN curl -LO https://dl.k8s.io/release/${KUBECTL_VERSION}/bin/${TARGETOS}/${TARGETARCH}/kubectl && \
     chmod +x ./kubectl && \
     mv ./kubectl /usr/local/bin/kubectl && \
     echo -e 'source /usr/share/bash-completion/bash_completion\nsource <(kubectl completion bash)' >>~/.bashrc
