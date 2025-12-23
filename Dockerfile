@@ -1,8 +1,10 @@
 # ---------- Build stage ----------
 FROM alpine:3.22.1 AS builder
 
-ARG TARGETOS=linux
-ARG TARGETARCH=amd64
+# Do not specify default value as docker buildx will not set the arguments otherwise, see https://github.com/docker/buildx/issues/510
+ARG TARGETOS
+ARG TARGETARCH
+
 ARG KUBECTL_VERSION=v1.33.4
 ARG HELM_VERSION=v3.18.5
 ARG KUSTOMIZE_VERSION=v5.7.1
