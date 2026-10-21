@@ -1,0 +1,11 @@
+kubesphere/kubectl
+
+  kubectl, helm and kustomize plus the nicolaka/netshoot troubleshooting toolset.
+
+  Kubernetes   kubectl  helm  kustomize  calicoctl  ctop  grpcurl
+  Network      tcpdump  tshark  termshark  nmap  netcat  socat  iperf3  mtr  trip  conntrack
+  DNS          dig  drill  nslookup  fping  dhcping  swaks
+  HTTP/TLS     curl  wget  httpie  openssl  fortio  websocat
+  Tracing      strace  ltrace  ngrep  tcptraceroute  iftop  iptraf-ng
+
+  https://github.com/kubesphere/kubectl
